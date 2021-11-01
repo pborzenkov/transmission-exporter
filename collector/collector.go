@@ -5,7 +5,6 @@ import (
 	"sync"
 
 	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/log/level"
 	"github.com/pborzenkov/go-transmission/transmission"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -95,7 +94,7 @@ func (t *TransmissionCollector) Collect(ch chan<- prometheus.Metric) {
 func (t *TransmissionCollector) collectTurtleMode(ch chan<- prometheus.Metric) {
 	sess, err := t.client.GetSession(context.Background(), transmission.SessionFieldTurtleEnabled)
 	if err != nil {
-		level.Error(t.logger).Log("msg", "failed to query session info", "err", err)
+		ch <- prometheus.NewInvalidMetric(t.turtleModeDesc, err)
 		return
 	}
 
@@ -109,7 +108,10 @@ func (t *TransmissionCollector) collectTurtleMode(ch chan<- prometheus.Metric) {
 func (t *TransmissionCollector) collectSessionStats(ch chan<- prometheus.Metric) {
 	stats, err := t.client.GetSessionStats(context.Background())
 	if err != nil {
-		level.Error(t.logger).Log("msg", "failed to query session statistics", "err", err)
+		ch <- prometheus.NewInvalidMetric(t.activeTorrentsDesc, err)
+		ch <- prometheus.NewInvalidMetric(t.pausedTorrentsDesc, err)
+		ch <- prometheus.NewInvalidMetric(t.downloadedBytesTotalDesc, err)
+		ch <- prometheus.NewInvalidMetric(t.uploadedBytesTotalDesc, err)
 		return
 	}
 

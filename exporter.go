@@ -37,7 +37,7 @@ func newHandler(turl string, logger log.Logger) (http.Handler, error) {
 	handler := promhttp.HandlerFor(
 		prometheus.Gatherers{r},
 		promhttp.HandlerOpts{
-			ErrorHandling: promhttp.ContinueOnError,
+			ErrorHandling: promhttp.HTTPErrorOnError,
 		},
 	)
 
