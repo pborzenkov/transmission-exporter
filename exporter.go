@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -19,19 +22,33 @@ import (
 )
 
 func newHandler(turl string, logger log.Logger) (http.Handler, error) {
-	trans, err := transmission.New(turl)
+	var options []transmission.Option
+
+	if strings.HasPrefix(turl, "unix://") {
+		sock := strings.TrimPrefix(turl, "unix://")
+		turl = "http://localhost"
+		options = append(options, transmission.WithHTTPClient(&http.Client{
+			Transport: &http.Transport{
+				DialContext: func(_ context.Context, _, _ string) (net.Conn, error) {
+					return net.Dial("unix", sock)
+				},
+			},
+		}))
+	}
+
+	trans, err := transmission.New(turl, options...)
 	if err != nil {
 		return nil, fmt.Errorf("couldn't create transmission client: %s", err)
 	}
 
 	tc, err := collector.NewTransmissionCollector(trans, logger)
 	if err != nil {
-		return nil, fmt.Errorf("couldn't create collector: %s", err)
+		return nil, fmt.Errorf("couldn't create transmission collector: %s", err)
 	}
 
 	r := prometheus.NewRegistry()
 	if err := r.Register(tc); err != nil {
-		return nil, fmt.Errorf("couldn't register node collector: %s", err)
+		return nil, fmt.Errorf("couldn't register transmission collector: %s", err)
 	}
 
 	handler := promhttp.HandlerFor(

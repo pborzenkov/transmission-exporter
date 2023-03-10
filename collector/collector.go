@@ -3,8 +3,10 @@ package collector
 import (
 	"context"
 	"sync"
+	"time"
 
 	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
 	"github.com/pborzenkov/go-transmission/transmission"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -15,6 +17,8 @@ const namespace = "transmission"
 type TransmissionCollector struct {
 	client *transmission.Client
 	logger log.Logger
+
+	portOpenDesc *prometheus.Desc
 
 	turtleModeDesc *prometheus.Desc
 
@@ -29,6 +33,12 @@ func NewTransmissionCollector(client *transmission.Client, logger log.Logger) (*
 	return &TransmissionCollector{
 		client: client,
 		logger: logger,
+
+		portOpenDesc: prometheus.NewDesc(
+			prometheus.BuildFQName(namespace, "", "is_port_open"),
+			"Indicates whether or not the peer port is accessible from the internet.",
+			nil, nil,
+		),
 
 		turtleModeDesc: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, "", "is_turtle_mode_active"),
@@ -62,7 +72,10 @@ func NewTransmissionCollector(client *transmission.Client, logger log.Logger) (*
 
 // Describe implements the prometheus.Collector interface
 func (t *TransmissionCollector) Describe(ch chan<- *prometheus.Desc) {
+	ch <- t.portOpenDesc
+
 	ch <- t.turtleModeDesc
+
 	ch <- t.activeTorrentsDesc
 	ch <- t.pausedTorrentsDesc
 
@@ -73,6 +86,7 @@ func (t *TransmissionCollector) Describe(ch chan<- *prometheus.Desc) {
 // Collect implements the prometheus.Collector interface.
 func (t *TransmissionCollector) Collect(ch chan<- prometheus.Metric) {
 	fns := []func(chan<- prometheus.Metric){
+		t.collectPortOpen,
 		t.collectTurtleMode,
 		t.collectSessionStats,
 	}
@@ -89,6 +103,24 @@ func (t *TransmissionCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	wg.Wait()
+}
+
+func (t *TransmissionCollector) collectPortOpen(ch chan<- prometheus.Metric) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
+	defer cancel()
+
+	open, err := t.client.IsPortOpen(ctx)
+	if err != nil {
+		level.Warn(t.logger).Log("msg", "failed to get peer port state, considering it closed", "err", err)
+		open = false
+	}
+
+	val := 0.
+	if open {
+		val = 1.
+	}
+
+	ch <- prometheus.MustNewConstMetric(t.portOpenDesc, prometheus.GaugeValue, val)
 }
 
 func (t *TransmissionCollector) collectTurtleMode(ch chan<- prometheus.Metric) {
