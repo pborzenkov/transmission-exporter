@@ -19,6 +19,7 @@ import (
 	"github.com/prometheus/common/promlog/flag"
 	"github.com/prometheus/common/version"
 	"github.com/prometheus/exporter-toolkit/web"
+	"github.com/prometheus/exporter-toolkit/web/kingpinflag"
 )
 
 func newHandler(turl string, logger log.Logger) (http.Handler, error) {
@@ -70,10 +71,6 @@ func must(h http.Handler, err error) http.Handler {
 }
 
 func main() {
-	listenAddress := kingpin.Flag(
-		"web.listen-address",
-		"Address on which to expose metrics and web interface.",
-	).Default(":29100").String()
 	metricsPath := kingpin.Flag(
 		"web.telemetry-path",
 		"Path under which to expose metrics.",
@@ -82,6 +79,7 @@ func main() {
 		"transmission.url",
 		"Transmission RPC server URL",
 	).Default("http://127.0.0.1:9091").String()
+	toolkitFlags := kingpinflag.AddFlags(kingpin.CommandLine, ":29100")
 
 	promlogConfig := &promlog.Config{}
 	flag.AddFlags(kingpin.CommandLine, promlogConfig)
@@ -103,9 +101,8 @@ func main() {
 			</html>`))
 	})
 
-	level.Info(logger).Log("msg", "Listening on", "address", *listenAddress)
-	server := &http.Server{Addr: *listenAddress}
-	if err := web.ListenAndServe(server, "", logger); err != nil {
+	server := &http.Server{}
+	if err := web.ListenAndServe(server, toolkitFlags, logger); err != nil {
 		level.Error(logger).Log("err", err)
 		os.Exit(1)
 	}
