@@ -24,7 +24,7 @@ jobs:
         run: nix profile install --accept-flake-config github:cachix/devenv/latest
       - name: Setup nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v1
-      - name: Setup cargo cache
+      - name: Setup cache
         uses: actions/cache@v3
         continue-on-error: false
         with:
