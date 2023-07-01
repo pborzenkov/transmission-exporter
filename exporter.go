@@ -1,3 +1,4 @@
+// Package main implements Prometheus exporter for Transmission torrent client
 package main
 
 import (
@@ -9,8 +10,8 @@ import (
 	"strings"
 
 	kingpin "github.com/alecthomas/kingpin/v2"
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/log/level"
+	"github.com/go-kit/log"
+	"github.com/go-kit/log/level"
 	"github.com/pborzenkov/go-transmission/transmission"
 	"github.com/pborzenkov/transmission-exporter/collector"
 	"github.com/prometheus/client_golang/prometheus"

@@ -1,3 +1,4 @@
+// Package collector implements Prometheus collector for Transmission torrent client.
 package collector
 
 import (
@@ -5,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/log/level"
+	"github.com/go-kit/log"
+	"github.com/go-kit/log/level"
 	"github.com/pborzenkov/go-transmission/transmission"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -29,6 +30,7 @@ type TransmissionCollector struct {
 	uploadedBytesTotalDesc   *prometheus.Desc
 }
 
+// NewTransmissionCollector creates a new collector for Transmission connected to client.
 func NewTransmissionCollector(client *transmission.Client, logger log.Logger) (*TransmissionCollector, error) {
 	return &TransmissionCollector{
 		client: client,
