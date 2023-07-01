@@ -1,0 +1,41 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - id: go-cache-paths
+        run: |
+          echo "::set-output name=go-build::$(go env GOCACHE)"
+          echo "::set-output name=go-mod::$(go env GOMODCACHE)"
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Install cachix
+        uses: cachix/cachix-action@v12
+        with:
+          name: devenv
+      - name: Install devenv.sh
+        run: nix profile install --accept-flake-config github:cachix/devenv/latest
+      - name: Setup nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v1
+      - name: Setup cargo cache
+        uses: actions/cache@v3
+        continue-on-error: false
+        with:
+          path: |
+            ${{ steps.go-cache-paths.outputs.go-build }}
+            ${{ steps.go-cache-paths.outputs.go-mod }}                       
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+      - name: Run pre-commit hooks
+        run: |
+          devenv shell pre-commit run --all-files
+      - name: Build
+        run: |
+          devenv shell go build
