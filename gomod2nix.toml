@@ -719,11 +719,11 @@ schema = 3
     version = "v1.0.0"
     hash = "sha256-/FtmHnaGjdvEIKAJtrUfEhV7EVo5A/eYrtdnUkuxLDA="
   [mod."github.com/prometheus/client_golang"]
-    version = "v1.17.0"
-    hash = "sha256-FIIzCuNqHdVzpbyH7yAp7Tcu+1tPxEMS5g6KfsGQBGE="
+    version = "v1.18.0"
+    hash = "sha256-kuC6WUg2j7A+9qnSp5VZSYo+oltgLvj/70TpqlCJIdE="
   [mod."github.com/prometheus/client_model"]
-    version = "v0.4.1-0.20230718164431-9a2bf3000d16"
-    hash = "sha256-t9LgImRW4h0XMSxfAazrGHqyDljDyl0YC5r9cYuXcKc="
+    version = "v0.5.0"
+    hash = "sha256-/sXlngf8AoEIeLIiaLg6Y7uYPVq7tI0qnLt0mUyKid4="
   [mod."github.com/prometheus/common"]
     version = "v0.45.0"
     hash = "sha256-N7CDcekAW8InquaVHHkuZ6gNCoW8J0yDlH5A+dj3cfE="
@@ -731,8 +731,8 @@ schema = 3
     version = "v0.11.0"
     hash = "sha256-/Ttv/Cb/5iFpDozpVvw5SJ3IrO0dXrRjKeONsAaXhtg="
   [mod."github.com/prometheus/procfs"]
-    version = "v0.11.1"
-    hash = "sha256-yphZ7NZtYC/tb0HVag2T58SuN64Ial9sBo/TdCEQx6Q="
+    version = "v0.12.0"
+    hash = "sha256-Y4ZZmxIpVCO67zN3pGwSk2TcI88zvmGJkgwq9DRTwFw="
   [mod."github.com/remyoudompheng/bigfft"]
     version = "v0.0.0-20200410134404-eec4a21b6bb0"
     hash = "sha256-16MkbAZXXUVbB9fObyHtQyBPqnhwNv/cjtJXrNiYAXQ="
