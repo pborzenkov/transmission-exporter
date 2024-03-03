@@ -563,8 +563,8 @@ schema = 3
     version = "v2.0.8+incompatible"
     hash = "sha256-10N9pnZB4J5IEaR8fTLH438DtDIeIAaxH86D1xtT+x4="
   [mod."github.com/google/go-cmp"]
-    version = "v0.5.9"
-    hash = "sha256-lQc4O00R3QSMGs9LP8Sy7A9kj0cqV5rrUdpnGeipIyg="
+    version = "v0.6.0"
+    hash = "sha256-qgra5jze4iPGP0JSTVeY5qV5AvEnEu39LYAuUCIkMtg="
   [mod."github.com/google/gofuzz"]
     version = "v1.0.0"
     hash = "sha256-ZvgcSQt4kMwS6nvPp3jrlCHSH3bky1oBD6kytnEa5GM="
@@ -719,14 +719,14 @@ schema = 3
     version = "v1.0.0"
     hash = "sha256-/FtmHnaGjdvEIKAJtrUfEhV7EVo5A/eYrtdnUkuxLDA="
   [mod."github.com/prometheus/client_golang"]
-    version = "v1.18.0"
-    hash = "sha256-kuC6WUg2j7A+9qnSp5VZSYo+oltgLvj/70TpqlCJIdE="
+    version = "v1.19.0"
+    hash = "sha256-YV8sxMPR+xorTUCriTfcFsaV2b7PZfPJDQmOgUYOZJo="
   [mod."github.com/prometheus/client_model"]
     version = "v0.5.0"
     hash = "sha256-/sXlngf8AoEIeLIiaLg6Y7uYPVq7tI0qnLt0mUyKid4="
   [mod."github.com/prometheus/common"]
-    version = "v0.46.0"
-    hash = "sha256-Q303suNDzc+DbIYhiqURNhymXeheWEshwm7XasKnX+Y="
+    version = "v0.48.0"
+    hash = "sha256-gXer/9So7DxDP3cBQp8sIzJXP5whT8sk31FURoij5Do="
   [mod."github.com/prometheus/exporter-toolkit"]
     version = "v0.11.0"
     hash = "sha256-/Ttv/Cb/5iFpDozpVvw5SJ3IrO0dXrRjKeONsAaXhtg="
