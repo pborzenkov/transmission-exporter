@@ -92,7 +92,7 @@ func main() {
 	level.Info(logger).Log("msg", "Starting transmission-exporter", "version", version.Info())
 
 	http.Handle(*metricsPath, must(newHandler(*transmissionURL, logger)))
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		w.Write([]byte(`<html>
 			<head><title>Transmission Exporter</title></head>
 			<body>
