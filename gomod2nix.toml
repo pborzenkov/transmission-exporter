@@ -701,8 +701,8 @@ schema = 3
     version = "v0.0.0-20190716064945-2f068394615f"
     hash = "sha256-h6tgygomf/oVKMa2MO8sPLUD3CxK81z5q/roKYKvsno="
   [mod."github.com/pborzenkov/go-transmission"]
-    version = "v0.2.0"
-    hash = "sha256-QwqrCzw0+JRMBEMVytnuN9IVwJijlZZvf+wjD1fWepk="
+    version = "v0.3.0"
+    hash = "sha256-H322j/K6hOILzqfcX7qw0ENBVAwo84oQk8AggdkXjVw="
   [mod."github.com/phpdave11/gofpdf"]
     version = "v1.4.2"
     hash = "sha256-r+8O1xRD7pd0cIXQyvF2pnEprCesuBTtP+OWslnV2rE="
