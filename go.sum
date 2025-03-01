@@ -876,8 +876,8 @@ github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8m
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f h1:KUppIJq7/+SVif2QVs3tOP0zanoHgBEVAwHxUSIzRqU=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
-github.com/pborzenkov/go-transmission v0.2.0 h1:M2BNkMMkSzMR1R2O8/qOHrdH/9hehnryo8ydRM7VfJg=
-github.com/pborzenkov/go-transmission v0.2.0/go.mod h1:OVq5GIEww8myxj++57xDkbITDe1dBLZBIu8WcIhNSW0=
+github.com/pborzenkov/go-transmission v0.3.0 h1:9/+SsnoFlM7RELZFZ47uIvskuF1mAMKFe94EpVhvhO4=
+github.com/pborzenkov/go-transmission v0.3.0/go.mod h1:97tHxcC2s4aKlzVzthfw76NWwRBwKH76qe8rc4DXl4g=
 github.com/phpdave11/gofpdf v1.4.2/go.mod h1:zpO6xFn9yxo3YLyMvW8HcKWVdbNqgIfOOp2dXMnm1mY=
 github.com/phpdave11/gofpdi v1.0.12/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
 github.com/phpdave11/gofpdi v1.0.13/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
